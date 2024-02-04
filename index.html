@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>记得好好照顾自己</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-hHjp+zaeIo06lGf1b2iAK1sKXcL4dIszV8Sk9+FvcL7Vm8m+qUtIY2r+ZfcHrIyWlxvOBSJ4ge9BJD8TOwnrwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Preload images -->
+    <link rel="preload" href="safety0.jpg" as="image">
+    <link rel="preload" href="affirmation1.jpg" as="image">
+    <link rel="preload" href="affirmation2.jpg" as="image">
+    <link rel="preload" href="affirmation3.jpg" as="image">
+    <link rel="preload" href="affirmation4.jpg" as="image">
+
+    <style>
+        body {
+            background-color: #f4f4f4;
+            text-align: center;
+            font-family: Heiti;
+            color: #333;
+            margin: 0 50px;
+			height:100%
+			font-size:18px;
+			min-height:2000px;
+        }
+
+        #affirmation-container {
+            max-width: 500px;
+            margin: 0 auto;
+			min-height:2000px;
+            background-color: #fff;
+			height:100%;
+            padding: 0px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden; /* Hide overflow for slider effect */
+        }
+		@media (max-width:499px){
+			body{margin:0;}
+			#affirmation-container{width:100%;}
+		}
+		
+        .navbar {
+            color: #191970;
+			width:100%;
+            font-size: 30px;
+            margin: 0;
+			background:#E6E6FA;
+			padding:20px 0;
+			text-align:center;
+			justify-content:center;
+			line-height:1.3;
+			display:block;
+        }
+		
+		.container{
+			padding:30px;
+		}
+		
+        p {
+            font-size: 16px;
+			color:#696969;
+        }
+		
+		img{
+			width:100%;
+			margin-bottom:50px;
+		}
+		
+		#final-container img{
+			width:50%;
+			margin-bottom:50px;
+		}
+        #affirmation-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        #affirmation-text {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        #question-container {
+            margin-bottom: 20px;
+        }
+
+        #question-text {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        #user-answer {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        #confirm-button, #answer-button,#reference-button,#feedback-button {
+            font-size: 16px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+			margin:0 auto;
+        }
+
+        #navigation button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: #3498db;
+            transition: color 0.3s ease;
+        }
+
+        #navigation button:hover {
+            color: #2980b9;
+        }
+
+        /* Your existing feedback section remains unchanged */
+		#feedback{
+			display:none;
+		}
+
+        /* Additional style for the textarea */
+        #feedback-textarea {
+            display: none;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+		
+		/* margin and padding*/
+		.mt-20{
+			margin-top:20px !important
+		}
+		.mb-20{
+			margin-bottom:20px !important
+		}
+		.pt-20{
+			padding-top:20px !important
+		}
+		.pb-20{
+			padding-bottom:20px !important
+		}
+		.text-center{
+			text-align:center;
+			justify-content:center;
+		}
+				
+		#music-widget{
+			background-color: #f4f4f4;
+			right: 20px;
+			bottom: 20px;
+			width: 70px;
+			height: 70px;
+			z-index: 9999;
+			position: -webkit-fixed;
+			position: fixed;
+			padding: 7px;
+			border-radius: 50%;
+			box-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+
+		}
+		#music-widget:hover{
+			cursor:pointer;
+		}
+		.music-note{
+			margin-top:10px;
+		}
+		#volumeControl{
+			position: relative;
+			margin-top: -53px;
+			margin-bottom: -1px;
+			margin-left: -7px;
+			width: 79px;
+		}
+    </style>
+</head>
+
+<body>
+    <div id="affirmation-container">
+        <h1 class="navbar">焦虑时就看看吧</h1>
+		<div class="container">
+			<img id="affirmation-image" src="safety0.jpg" alt="Affirmation Image">
+			<p id="affirmation-text" class="text-center">Loading...</p>
+
+	 
+			<div id="final-container text-center" style="display:none;">
+				<p> 好了，你已经完成了，喜欢这样的方式，可以点击以下按钮去到feedback form 告诉我，我就会出更多这样的系列。喜欢这个app 的话，可以把app 存在手机里，下面有教程！</p>
+				<button id="feedback-button" onclick="displayAddHome()" style="display:none;margin-top:10px;">填写Feedback,或者把APP加到手机</button>
+			</div>
+			 <div class="section" id="final-container" style=" display:none;" >
+				<h4>恭喜你已经完成了</h4>
+				<div class="container">
+					<div class="row" style="margin-bottom: 30px;">
+						
+						<div class="column">
+							<h5>想要保存这个APP？</h5>
+							<p>可以在手机浏览器中打开，然后选择“添加到主屏幕”以创建应用的快捷方式。下面图片/视频教你！</p>
+
+							<div>
+								<p>第一步：在手机打开APP</p>
+								<img src="step1.jpeg" width="300px" height="auto" alt="step1">
+								<p>第二步：选择添加到主页</p>
+								<img src="step2.jpeg" width="300px" height="auto"  alt="step2">
+								<p>第三步：重新命名</p>
+								<img src="step3.jpeg" width="300px" height="auto"  alt="step3">
+								<p>第四步：你在手机找到啦</p>
+								<img src="step4.jpeg" width="300px" height="auto"  alt="step4">
+							</div>
+							<p>视频教程：</p>
+							<div class="video-container">
+								<iframe src="https://www.youtube.com/embed/dTFaSVUlmA4?si=haZAEGNuYLF5ZXxc" frameborder="0" style="width: 100%; min-height: 400px;" allowfullscreen></iframe>
+							</div>
+						</div>
+						<div class="column" style="margin-top:50px;">
+							<p>觉得我们有更多进步的地方？或者想要更多的系列？给我们一点意见吧·</p>
+							<form action="https://script.google.com/macros/s/AKfycbxHQefQKgU5bVNMaDdbp_oP8mge0U2UAcvx2Y9M0c8kOJxpuCfJUbimgESUCeKJrZ2blg/exec" method="POST">
+								<label for="feedback" style="margin-bottom:30px;">提供反馈：</label>
+								<textarea id="moreDetails" name="details" class="form-control" id="feedback" rows="5" style="width: 100%;"></textarea>
+								<button type="submit" style="margin-top: 10px; padding: 10px 20px; background-color: #007bff; color: #fff; border: none; border-radius: 5px; cursor: pointer;">提交反馈</button>
+							</form>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div id="navigation">
+				<button class="arrow-left" style="font-size:15px;" onclick="prevAffirmation()">&larr;上一页</button>
+				<button class="arrow-right" style="font-size:15px;" onclick="nextAffirmation()">下一页&rarr;</button>
+			</div>
+		</div>
+		
+		<div id="music-widget">
+			<div id="volumeControl" style="display:none;">
+				<label style="font-size:10px;">调整音量</label>
+				<input id="volumeControlBar" type="range"  min="0" max="1" step="0.01" value="0.5"  style="width:60px;">
+			</div>
+			<div id="music-widget-button">
+				<span class="music-note">&#127925;</span>
+				<p style="font-size:10px !important;">点击播放/<br/>暂停音乐</p>
+			</div>
+		</div>
+	  <div id="newParentDiv">
+		<!-- New parent div where the input will be moved -->
+	  </div>	
+			
+
+		<audio id="music" src="music.weba" loop></audio>
+		<script>
+		  const music = document.getElementById('music');
+		  const playButton = document.getElementById('music-widget-button');
+		  const volumeControlBar = document.getElementById('volumeControlBar');
+		  const volumeControl = document.getElementById('volumeControl');
+
+
+		  // Automatically pause the music when the page loads
+		  window.addEventListener('load', () => {
+			music.pause();
+		  });
+
+		  // Function to play or pause the music and update button text accordingly
+		  function togglePlay() {
+			if (music.paused) {
+			  playMusic();
+			} else {
+			  pauseMusic();
+			}
+		  }
+
+		  // Function to play the music
+		  function playMusic() {
+			music.play();
+			volumeControl.style.display="block";
+		  }
+
+		  // Function to pause the music
+		  function pauseMusic() {
+			music.pause();
+			volumeControl.style.display="none";
+		  }
+
+		  // Event listener for the play button
+		  playButton.addEventListener('click', togglePlay);
+
+		  // Event listener for volume control
+		  volumeControl.addEventListener('input', () => {
+			music.volume = volumeControlBar.value;
+		  });
+		</script>
+    </div>
+
+    <!-- Your existing feedback section remains unchanged -->
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script>
+		var firsttime = true;
+		function remove(){
+			if (firsttime ===true){
+				affirmations.shift();
+				currentAffirmationIndex = currentAffirmationIndex - 1;
+				firsttime = false;
+				document.getElementById("affirmation-text").style.textAlign = "left";
+
+
+			}	
+		}	
+		
+        var affirmations = [
+            { text: " 当你焦虑时，不妨看看吧，到最后喜欢的话就存下来，方便以后看看 ！\n\n点击 '下一页'开始", image: "safety0.jpg", defaultAnswer: "" },
+		  {
+			"text": "会导致我们焦虑，过的不好的一个原因，就是评判，\n\n无论是评判自己，评判今天发生的事情，还是评判别人。\n\n为什么呢？\n\n因为世界上所有的人事物，都是以他们的自由意志来行动，我们也是。",
+			"image": "affirmation1.jpg",
+			"defaultAnswer": "未回答",
+			"referenceAnswer": "你可以问任意一个守门人，'如果我问另一个守门人，他会告诉我哪扇门通往安全之地吗？' 如果他说是，那么选择他所指的门；如果他说不是，那么选择另一扇门。"
+		  },
+		  {
+			"text": "评判不会改变他们。\n沟通也可能会改变那些事情，也可能不会。\n\n知道了这一点，我们才明白，不要把太多时间放在规划未来，而是做积累。",
+			"image": "affirmation2.jpg",
+			"defaultAnswer": "未回答",
+			"referenceAnswer": "你可以问他，'如果我问你是不是总是说谎话，你会说是吗？' 如果他说是，那么他是总是说真话的类型；如果他说不是，那么他是总是说谎话的类型。"
+		  },
+		  {
+			"text": "不妨专注在以下的活动吧：\n 1. 做项目积累经验人脉 \n 2. 定期社交积累人脉 \n  3. 每天花时间阅读积累知识，或者每天学习积累技能\n 4. 也要每天花时间积累你的快乐，做你喜欢的事情",
+			"image": "affirmation3.jpg",
+			"defaultAnswer": "未回答",
+			"referenceAnswer": "你可以问任意一个人，'如果我问另外两个人，哪一个是说真话的？' 然后选择不同于他回答的那个人。"
+		  },
+		  {
+			"text": "因为这些都是能具体改变你的生活的方式。\n\n评判自己更不可取，一个天天骂自己的人，是没有救的。\n\n所以从今天开始，开始积累你人生中好的东西吧",
+			"image": "affirmation4.jpg",
+			"defaultAnswer": "未回答",
+			"referenceAnswer": "打开一个开关待一会，然后关闭它。接着打开另一个开关，然后走进房间。观察灯的状态：如果灯亮着，说明这是第一个开关控制的；如果灯熄灭，摸一下灯泡：如果是热的，说明这是第二个开关控制的；如果是冷的，说明这是第三个开关控制的。"
+		  },
+            { text: "", image: "final.jpg", defaultAnswer: "" },
+
+ // Add more affirmations as needed
+        ];
+
+        var currentAffirmationIndex = 0;
+
+		function showAffirmation(index) {
+			var affirmation = affirmations[index];
+			document.getElementById('affirmation-text').innerHTML = affirmation.text.replace(/\n/g, '<br>');
+			document.getElementById('affirmation-image').src = affirmation.image;
+
+		}
+
+
+		
+        function nextAffirmation() {
+            currentAffirmationIndex = (currentAffirmationIndex + 1) % affirmations.length;
+            showAffirmation(currentAffirmationIndex);
+			remove();
+			
+			checklast();
+        }
+
+        function prevAffirmation() {
+            currentAffirmationIndex = (currentAffirmationIndex - 1 + affirmations.length) % affirmations.length;
+            showAffirmation(currentAffirmationIndex);
+
+			remove();
+			checklast();
+        }
+		
+
+		function checklast(){
+			console.log(currentAffirmationIndex);
+			console.log(affirmations.length-1);
+			if (currentAffirmationIndex === affirmations.length-1){
+				console.log("i am run")
+				document.getElementById('final-container').style.display="block";
+
+				
+			}else{
+
+				document.getElementById('final-container').style.display="none";			
+			}
+		}
+		
+		function displayAddHome(){
+			document.getElementById('feedback').style.display="block";
+			// Fetch the URL
+			fetch('https://script.google.com/macros/s/AKfycbxMdAmgo9_wsiUIU23pRZpeYuHqd50RdKukED3w1Q_fRmyuGrqQBEcavc-WxI-7PQQg8A/exec?cta=11')
+				.then(response => response.json()
+				
+				)
+				.then(data => {
+					// Handle the data as needed
+					console.log(data);
+				})
+				.catch(error => {
+					// Handle errors
+					console.error('Error fetching data:', error);
+				});
+		}
+        // Initial display
+        showAffirmation(currentAffirmationIndex);
+		
+	// track view 
+	window.onload = function() {
+	console.log("hi")
+	// Fetch the URL
+    fetch('https://script.google.com/macros/s/AKfycbxMdAmgo9_wsiUIU23pRZpeYuHqd50RdKukED3w1Q_fRmyuGrqQBEcavc-WxI-7PQQg8A/exec?view=14')
+        .then(response => response.json()
+		
+		)
+        .then(data => {
+            // Handle the data as needed
+            console.log(data);
+        })
+        .catch(error => {
+            // Handle errors
+            console.error('Error fetching data:', error);
+        });
+	//	addAppToHomeScreen()
+	
+	};
+
+	setTimeout(function () {
+		fetch('https://script.google.com/macros/s/AKfycbxMdAmgo9_wsiUIU23pRZpeYuHqd50RdKukED3w1Q_fRmyuGrqQBEcavc-WxI-7PQQg8A/exec?home=14')
+		.then(response => response.json())
+		.then(data => {
+			console.log(data);
+		})
+		.catch(error => {
+			console.error('Error fetching data:', error);
+		});
+
+      }, 30000);
+	  
+    </script>
+</body>
+
+</html>
